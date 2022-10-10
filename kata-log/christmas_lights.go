@@ -38,17 +38,22 @@ func changeAllLightsInARowState(lightRow []string, lightState string) []string {
 }
 
 func changeRangeOfLights(lights [][]string, rowX, rowY, columnX, columnY int) [][]string {
-
 	for i := rowX; i <= rowY; i++ {
-		light := lights[i]
-		for j := columnX; j <= columnY; j++ {
-			if light[j] == TurnOn.getValue() {
-				light[j] = TurnOff.getValue()
-			} else {
-				light[j] = TurnOn.getValue()
-			}
-		}
-		lights[i] = light
+		lights[i] = changeLightsRowInToggle(columnX, columnY, lights[i])
 	}
 	return lights
+}
+
+func changeLightsRowInToggle(columnX int, columnY int, light []string) []string {
+	for j := columnX; j <= columnY; j++ {
+		light[j] = toggleLight(light[j])
+	}
+	return light
+}
+
+func toggleLight(lightState string) string {
+	if lightState == TurnOn.getValue() {
+		return TurnOff.getValue()
+	}
+	return TurnOn.getValue()
 }
