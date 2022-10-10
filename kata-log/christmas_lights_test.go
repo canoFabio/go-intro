@@ -11,7 +11,7 @@ func TestDisplay(t *testing.T) {
 		want := make([][]string, 1000)
 
 		want = getLightsAllOff(want)
-		got := Display(want, false)
+		got := Display(want, TurnOff, 0, 0, 0, 0)
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v want %v", got, want)
@@ -23,7 +23,29 @@ func TestDisplay(t *testing.T) {
 		lights := make([][]string, 1000)
 
 		want = getLightsAllOn(want)
-		got := Display(getLightsAllOff(lights), true)
+		got := Display(getLightsAllOff(lights), TurnOn, 0, 0, 0, 0)
+
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+
+	t.Run("Should toggle the first line, turning off the ones that were on, "+
+		"and turning on the ones the that were off", func(t *testing.T) {
+		want := [][]string{
+			{"0", "1", "0", "1"},
+			{"1", "0", "1", "0"},
+			{"0", "0", "1", "0"},
+			{"1", "0", "1", "0"},
+		}
+		lights := [][]string{
+			{"1", "1", "0", "1"},
+			{"0", "0", "1", "0"},
+			{"1", "0", "1", "0"},
+			{"0", "0", "1", "0"},
+		}
+
+		got := Display(lights, Toggle, 0, 3, 0, 0)
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v want %v", got, want)
