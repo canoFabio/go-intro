@@ -7,74 +7,65 @@ import (
 
 func TestDisplay(t *testing.T) {
 
-	t.Run("Should display all lights on off", func(t *testing.T) {
-		want := make([][]string, 1000)
-		christmasLights := LightsConfiguration{
-			lights:  want,
-			rowX:    0,
-			rowY:    0,
-			columnX: 0,
-			columnY: 0}
-		lightsOff := ChristmasLightsOff{christmasLights}
-		want = getLightsAllOff(want)
-		got := lightsOff.Display()
+	lightsTest := []struct {
+		name      string
+		light     Light
+		hasLights [][]string
+	}{
+		{name: "Should display all lights on off", light: ChristmasLightsOff{lightsConfiguration: getLightsConfigAllOff()}, hasLights: getLightsAllOff()},
+		{name: "Should display all lights on on", light: ChristmasLightsOn{lightsConfiguration: getLightsConfigAllOff()}, hasLights: getLightsAllOn()},
+		{name: "Should toggle the first line, turning off the ones that were on, " +
+			"and turning on the ones the that were off", light: ChristmasLightsToggle{lightsConfiguration: getSomeRandomConfigLights()}, hasLights: getResultForSomeRandomLights()},
+	}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got %v want %v", got, want)
-		}
-	})
-
-	t.Run("Should display all lights on on", func(t *testing.T) {
-
-		lights := make([][]string, 1000)
-		christmasLights := LightsConfiguration{
-			lights:  getLightsAllOff(lights),
-			rowX:    0,
-			rowY:    0,
-			columnX: 0,
-			columnY: 0}
-		lightsOn := ChristmasLightsOn{christmasLights}
-
-		want := getLightsAllOn(make([][]string, 1000))
-		got := lightsOn.Display()
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got %v want %v", got, want)
-		}
-	})
-
-	t.Run("Should toggle the first line, turning off the ones that were on, "+
-		"and turning on the ones the that were off", func(t *testing.T) {
-		want := [][]string{
-			{"0", "1", "0", "1"},
-			{"1", "0", "1", "0"},
-			{"0", "0", "1", "0"},
-			{"1", "0", "1", "0"},
-		}
-		lights := [][]string{
-			{"1", "1", "0", "1"},
-			{"0", "0", "1", "0"},
-			{"1", "0", "1", "0"},
-			{"0", "0", "1", "0"},
-		}
-
-		christmasLights := LightsConfiguration{
-			lights:  lights,
-			rowX:    0,
-			rowY:    3,
-			columnX: 0,
-			columnY: 0}
-		lightsToggle := ChristmasLightsToggle{christmasLights}
-
-		got := lightsToggle.Display()
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got %v want %v", got, want)
-		}
-	})
+	for _, lt := range lightsTest {
+		t.Run(lt.name, func(t *testing.T) {
+			got := lt.light.Display()
+			if !reflect.DeepEqual(got, lt.hasLights) {
+				t.Errorf("got %v want %v", got, lt.hasLights)
+			}
+		})
+	}
 }
 
-func getLightsAllOn(want [][]string) [][]string {
+func getResultForSomeRandomLights() [][]string {
+	return [][]string{
+		{"0", "1", "0", "1"},
+		{"1", "0", "1", "0"},
+		{"0", "0", "1", "0"},
+		{"1", "0", "1", "0"},
+	}
+}
+
+func getSomeRandomConfigLights() LightsConfiguration {
+	return LightsConfiguration{
+		lights:  getSomeRandomLights(),
+		rowX:    0,
+		rowY:    3,
+		columnX: 0,
+		columnY: 0}
+}
+
+func getSomeRandomLights() [][]string {
+	return [][]string{
+		{"1", "1", "0", "1"},
+		{"0", "0", "1", "0"},
+		{"1", "0", "1", "0"},
+		{"0", "0", "1", "0"},
+	}
+}
+
+func getLightsConfigAllOff() LightsConfiguration {
+	return LightsConfiguration{
+		lights:  getLightsAllOff(),
+		rowX:    0,
+		rowY:    0,
+		columnX: 0,
+		columnY: 0}
+}
+
+func getLightsAllOn() [][]string {
+	want := make([][]string, 1000)
 	for i := range want {
 		want[i] = getLightRowAllOn()
 	}
@@ -89,7 +80,8 @@ func getLightRowAllOn() []string {
 	return lightRow
 }
 
-func getLightsAllOff(want [][]string) [][]string {
+func getLightsAllOff() [][]string {
+	want := make([][]string, 1000)
 	for i := range want {
 		want[i] = getLightRowAllOff()
 	}

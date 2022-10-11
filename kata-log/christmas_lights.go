@@ -12,7 +12,7 @@ type LightsConfiguration struct {
 	rowX, rowY, columnX, columnY int
 }
 
-type Lights interface {
+type Light interface {
 	Display() [][]string
 }
 
