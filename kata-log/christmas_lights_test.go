@@ -9,16 +9,16 @@ func TestDisplay(t *testing.T) {
 
 	t.Run("Should display all lights on off", func(t *testing.T) {
 		want := make([][]string, 1000)
-		christmasLights := ChristmasLights{
+		christmasLights := LightsConfiguration{
 			lights:        want,
 			configuration: TurnOff,
 			rowX:          0,
 			rowY:          0,
 			columnX:       0,
 			columnY:       0}
-
+		lightsOff := ChristmasLightsOff{christmasLights}
 		want = getLightsAllOff(want)
-		got := Display(christmasLights)
+		got := lightsOff.DisplayLightsConfiguration()
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v want %v", got, want)
@@ -28,16 +28,17 @@ func TestDisplay(t *testing.T) {
 	t.Run("Should display all lights on on", func(t *testing.T) {
 
 		lights := make([][]string, 1000)
-		christmasLights := ChristmasLights{
+		christmasLights := LightsConfiguration{
 			lights:        getLightsAllOff(lights),
 			configuration: TurnOn,
 			rowX:          0,
 			rowY:          0,
 			columnX:       0,
 			columnY:       0}
+		lightsOn := ChristmasLightsOn{christmasLights}
 
 		want := getLightsAllOn(make([][]string, 1000))
-		got := Display(christmasLights)
+		got := lightsOn.DisplayLightsConfiguration()
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v want %v", got, want)
@@ -59,15 +60,16 @@ func TestDisplay(t *testing.T) {
 			{"0", "0", "1", "0"},
 		}
 
-		christmasLights := ChristmasLights{
+		christmasLights := LightsConfiguration{
 			lights:        lights,
 			configuration: Toggle,
 			rowX:          0,
 			rowY:          3,
 			columnX:       0,
 			columnY:       0}
+		lightsToggle := ChristmasLightsToggle{christmasLights}
 
-		got := Display(christmasLights)
+		got := lightsToggle.DisplayLightsConfiguration()
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v want %v", got, want)

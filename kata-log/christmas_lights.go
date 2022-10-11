@@ -8,32 +8,51 @@ const (
 	Toggle  = Configuration("2")
 )
 
-type ChristmasLights struct {
+type LightsConfiguration struct {
 	lights                       [][]string
 	configuration                Configuration
 	rowX, rowY, columnX, columnY int
 }
 
-func Display(christmasLights ChristmasLights) [][]string {
-	switch christmasLights.configuration {
-	case TurnOn:
-		return changeAllLightsForNewState(christmasLights.lights, christmasLights.configuration.getValue())
-	case Toggle:
-		return changeRangeOfLights(christmasLights.lights, christmasLights.rowX, christmasLights.rowY, christmasLights.columnX, christmasLights.columnY)
-	default:
-		return christmasLights.lights
+type Lights interface {
+	DisplayLightsConfiguration() [][]string
+}
+
+type ChristmasLightsOn struct {
+	lightsConfiguration LightsConfiguration
+}
+type ChristmasLightsOff struct {
+	lightsConfiguration LightsConfiguration
+}
+type ChristmasLightsToggle struct {
+	lightsConfiguration LightsConfiguration
+}
+
+func (clo ChristmasLightsOn) DisplayLightsConfiguration() [][]string {
+	lightsConfiguration := clo.lightsConfiguration
+	lights := lightsConfiguration.lights
+	for i := range lights {
+		lights[i] = changeAllLightsInARowState(lights[i], lightsConfiguration.configuration.getValue())
 	}
+	return lights
+}
+
+func (clo ChristmasLightsOff) DisplayLightsConfiguration() [][]string {
+	lightsConfiguration := clo.lightsConfiguration
+	return lightsConfiguration.lights
+}
+
+func (clo ChristmasLightsToggle) DisplayLightsConfiguration() [][]string {
+	lightsConfiguration := clo.lightsConfiguration
+	lights := lightsConfiguration.lights
+	for i := lightsConfiguration.rowX; i <= lightsConfiguration.rowY; i++ {
+		lights[i] = changeLightsRowInToggle(lightsConfiguration.columnX, lightsConfiguration.columnY, lights[i])
+	}
+	return lights
 }
 
 func (c Configuration) getValue() string {
 	return string(c)
-}
-
-func changeAllLightsForNewState(lights [][]string, lightState string) [][]string {
-	for i := range lights {
-		lights[i] = changeAllLightsInARowState(lights[i], lightState)
-	}
-	return lights
 }
 
 func changeAllLightsInARowState(lightRow []string, lightState string) []string {
@@ -41,13 +60,6 @@ func changeAllLightsInARowState(lightRow []string, lightState string) []string {
 		lightRow[i] = lightState
 	}
 	return lightRow
-}
-
-func changeRangeOfLights(lights [][]string, rowX, rowY, columnX, columnY int) [][]string {
-	for i := rowX; i <= rowY; i++ {
-		lights[i] = changeLightsRowInToggle(columnX, columnY, lights[i])
-	}
-	return lights
 }
 
 func changeLightsRowInToggle(columnX int, columnY int, light []string) []string {
