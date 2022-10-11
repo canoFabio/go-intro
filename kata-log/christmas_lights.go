@@ -8,19 +8,25 @@ const (
 	Toggle  = Configuration("2")
 )
 
-func (c Configuration) getValue() string {
-	return string(c)
+type ChristmasLights struct {
+	lights                       [][]string
+	configuration                Configuration
+	rowX, rowY, columnX, columnY int
 }
 
-func Display(lights [][]string, configuration Configuration, rowX, rowY, columnX, columnY int) [][]string {
-	switch configuration {
+func Display(christmasLights ChristmasLights) [][]string {
+	switch christmasLights.configuration {
 	case TurnOn:
-		return changeAllLightsForNewState(lights, configuration.getValue())
+		return changeAllLightsForNewState(christmasLights.lights, christmasLights.configuration.getValue())
 	case Toggle:
-		return changeRangeOfLights(lights, rowX, rowY, columnX, columnY)
+		return changeRangeOfLights(christmasLights.lights, christmasLights.rowX, christmasLights.rowY, christmasLights.columnX, christmasLights.columnY)
 	default:
-		return lights
+		return christmasLights.lights
 	}
+}
+
+func (c Configuration) getValue() string {
+	return string(c)
 }
 
 func changeAllLightsForNewState(lights [][]string, lightState string) [][]string {
