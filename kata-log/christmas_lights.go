@@ -8,6 +8,10 @@ const (
 	Toggle  = Configuration("2")
 )
 
+func (c Configuration) getValue() string {
+	return string(c)
+}
+
 type LightsConfiguration struct {
 	lights                       [][]string
 	configuration                Configuration
@@ -15,7 +19,7 @@ type LightsConfiguration struct {
 }
 
 type Lights interface {
-	DisplayLightsConfiguration() [][]string
+	Display() [][]string
 }
 
 type ChristmasLightsOn struct {
@@ -28,7 +32,7 @@ type ChristmasLightsToggle struct {
 	lightsConfiguration LightsConfiguration
 }
 
-func (clo ChristmasLightsOn) DisplayLightsConfiguration() [][]string {
+func (clo ChristmasLightsOn) Display() [][]string {
 	lightsConfiguration := clo.lightsConfiguration
 	lights := lightsConfiguration.lights
 	for i := range lights {
@@ -37,29 +41,25 @@ func (clo ChristmasLightsOn) DisplayLightsConfiguration() [][]string {
 	return lights
 }
 
-func (clo ChristmasLightsOff) DisplayLightsConfiguration() [][]string {
+func changeAllLightsInARowState(lightRow []string, lightState string) []string {
+	for i := range lightRow {
+		lightRow[i] = lightState
+	}
+	return lightRow
+}
+
+func (clo ChristmasLightsOff) Display() [][]string {
 	lightsConfiguration := clo.lightsConfiguration
 	return lightsConfiguration.lights
 }
 
-func (clo ChristmasLightsToggle) DisplayLightsConfiguration() [][]string {
+func (clo ChristmasLightsToggle) Display() [][]string {
 	lightsConfiguration := clo.lightsConfiguration
 	lights := lightsConfiguration.lights
 	for i := lightsConfiguration.rowX; i <= lightsConfiguration.rowY; i++ {
 		lights[i] = changeLightsRowInToggle(lightsConfiguration.columnX, lightsConfiguration.columnY, lights[i])
 	}
 	return lights
-}
-
-func (c Configuration) getValue() string {
-	return string(c)
-}
-
-func changeAllLightsInARowState(lightRow []string, lightState string) []string {
-	for i := range lightRow {
-		lightRow[i] = lightState
-	}
-	return lightRow
 }
 
 func changeLightsRowInToggle(columnX int, columnY int, light []string) []string {

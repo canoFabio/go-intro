@@ -18,7 +18,7 @@ func TestDisplay(t *testing.T) {
 			columnY:       0}
 		lightsOff := ChristmasLightsOff{christmasLights}
 		want = getLightsAllOff(want)
-		got := lightsOff.DisplayLightsConfiguration()
+		got := lightsOff.Display()
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v want %v", got, want)
@@ -38,7 +38,7 @@ func TestDisplay(t *testing.T) {
 		lightsOn := ChristmasLightsOn{christmasLights}
 
 		want := getLightsAllOn(make([][]string, 1000))
-		got := lightsOn.DisplayLightsConfiguration()
+		got := lightsOn.Display()
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v want %v", got, want)
@@ -69,7 +69,7 @@ func TestDisplay(t *testing.T) {
 			columnY:       0}
 		lightsToggle := ChristmasLightsToggle{christmasLights}
 
-		got := lightsToggle.DisplayLightsConfiguration()
+		got := lightsToggle.Display()
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v want %v", got, want)
