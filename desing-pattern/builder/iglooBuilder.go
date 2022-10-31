@@ -1,4 +1,4 @@
-package main
+package builder
 
 type IglooBuilder struct {
 	windowType string

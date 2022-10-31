@@ -1,4 +1,4 @@
-package main
+package builder
 
 type IBuilder interface {
 	setWindowType()

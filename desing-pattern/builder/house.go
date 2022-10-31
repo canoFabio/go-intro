@@ -1,4 +1,4 @@
-package main
+package builder
 
 type House struct {
 	windowType string

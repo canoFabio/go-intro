@@ -1,4 +1,4 @@
-package main
+package builder
 
 type NormalBuilder struct {
 	windowType string
