@@ -9,7 +9,7 @@ func TestDisplay(t *testing.T) {
 
 	lightsTest := []struct {
 		name      string
-		light     Light
+		light     ChristmasLight
 		hasLights [][]string
 	}{
 		{name: "Should display all lights on off", light: ChristmasLightsOff{lightsConfiguration: getLightsConfigAllOff()}, hasLights: getLightsAllOff()},
