@@ -1,4 +1,4 @@
-package main
+package simple_factory
 
 type IGun interface {
 	setName(name string)

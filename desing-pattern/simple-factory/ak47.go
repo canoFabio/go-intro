@@ -1,4 +1,4 @@
-package main
+package simple_factory
 
 type Ak47 struct {
 	Gun

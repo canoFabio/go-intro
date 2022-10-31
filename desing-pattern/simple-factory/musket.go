@@ -1,4 +1,4 @@
-package main
+package simple_factory
 
 type Musket struct {
 	Gun
