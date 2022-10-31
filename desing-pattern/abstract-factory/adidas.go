@@ -1,4 +1,4 @@
-package main
+package astract_factory
 
 type Adidas struct {
 }

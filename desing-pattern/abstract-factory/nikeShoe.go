@@ -1,4 +1,4 @@
-package main
+package astract_factory
 
 type NikeShoe struct {
 	Shoe
