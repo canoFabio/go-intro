@@ -4,8 +4,10 @@ type ChristmasLightsOn struct {
 	lightsConfiguration LightsConfiguration
 }
 
-func newLightsOn() ChristmasLight {
-	return &ChristmasLightsOn{}
+func newLightsOn(lightsConfiguration LightsConfiguration) ChristmasLight {
+	return &ChristmasLightsOn{
+		lightsConfiguration: lightsConfiguration,
+	}
 }
 
 func (clo ChristmasLightsOn) Display() [][]string {

@@ -1,31 +1,41 @@
 package kata_log
 
 import (
-	"reflect"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-func TestDisplay(t *testing.T) {
+func TestWhenLightsConfigurationIsAllOff_ThenAllLightsShouldBeZero(t *testing.T) {
+	lightConfiguration := getLightsConfigAllOff()
+	want := getLightsAllOff()
+	christmasLights, _ := getChristmasLights(lightsOff, lightConfiguration)
 
-	lightsTest := []struct {
-		name      string
-		light     ChristmasLight
-		hasLights [][]string
-	}{
-		{name: "Should display all lights on off", light: ChristmasLightsOff{lightsConfiguration: getLightsConfigAllOff()}, hasLights: getLightsAllOff()},
-		{name: "Should display all lights on on", light: ChristmasLightsOn{lightsConfiguration: getLightsConfigAllOff()}, hasLights: getLightsAllOn()},
-		{name: "Should toggle the first line, turning off the ones that were on, " +
-			"and turning on the ones the that were off", light: ChristmasLightsToggle{lightsConfiguration: getSomeRandomConfigLights()}, hasLights: getResultForSomeRandomLights()},
-	}
+	got := christmasLights.Display()
 
-	for _, lt := range lightsTest {
-		t.Run(lt.name, func(t *testing.T) {
-			got := lt.light.Display()
-			if !reflect.DeepEqual(got, lt.hasLights) {
-				t.Errorf("got %v want %v", got, lt.hasLights)
-			}
-		})
-	}
+	assert.Equal(t, got, want)
+
+}
+
+func TestWhenLightsConfigurationIsAllOn_ThenAllLightsShouldBeOne(t *testing.T) {
+	lightConfiguration := getLightsConfigAllOff()
+	want := getLightsAllOn()
+	christmasLights, _ := getChristmasLights(lightsOn, lightConfiguration)
+
+	got := christmasLights.Display()
+
+	assert.Equal(t, got, want)
+
+}
+
+func TestWhenLightsConfigurationIsToggleTheFirstLine_ThenTheOnesShouldBeZeroAndTheZerosShouldBeOnes(t *testing.T) {
+	lightConfiguration := getSomeRandomConfigLights()
+	want := getResultForSomeRandomLights()
+	christmasLights, _ := getChristmasLights(lightsToggle, lightConfiguration)
+
+	got := christmasLights.Display()
+
+	assert.Equal(t, got, want)
+
 }
 
 func getResultForSomeRandomLights() [][]string {
