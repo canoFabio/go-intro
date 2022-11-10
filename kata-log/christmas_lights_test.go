@@ -6,7 +6,7 @@ import (
 )
 
 func TestWhenLightsConfigurationIsAllOff_ThenAllLightsShouldBeZero(t *testing.T) {
-	lightConfiguration := getLightsConfigAllOff()
+	lightConfiguration := getLightsConfigAllLights()
 	want := getLightsAllOff()
 	christmasLights, _ := getChristmasLights(lightsOff, lightConfiguration)
 
@@ -17,7 +17,7 @@ func TestWhenLightsConfigurationIsAllOff_ThenAllLightsShouldBeZero(t *testing.T)
 }
 
 func TestWhenLightsConfigurationIsAllOn_ThenAllLightsShouldBeOne(t *testing.T) {
-	lightConfiguration := getLightsConfigAllOff()
+	lightConfiguration := getLightsConfigAllLights()
 	want := getLightsAllOn()
 	christmasLights, _ := getChristmasLights(lightsOn, lightConfiguration)
 
@@ -31,6 +31,7 @@ func TestWhenLightsConfigurationIsToggleTheFirstLine_ThenTheOnesShouldBeZeroAndT
 	lightConfiguration := getSomeRandomConfigLights()
 	want := getResultForSomeRandomLights()
 	christmasLights, _ := getChristmasLights(lightsToggle, lightConfiguration)
+
 	got := christmasLights.Display()
 
 	assert.Equal(t, got, want)
@@ -46,6 +47,44 @@ func TestWhenLightsConfigurationTurnOffTheMiddleLights_ThenTheMiddleLightsShould
 
 	assert.Equal(t, got, want)
 	t.Logf("got %v want %v", got, want)
+}
+
+func TestWhenLightsConfigurationTurnOnTheMiddleLights_ThenTheMiddleLightsShouldBeZeros(t *testing.T) {
+	lightConfiguration := getConfigLightsForTheMiddleLightsOn()
+	want := getResultForTheMiddleLightsOn()
+	christmasLights, _ := getChristmasLights(lightsOn, lightConfiguration)
+
+	got := christmasLights.Display()
+
+	assert.Equal(t, want, got)
+	t.Logf("got %v want %v", got, want)
+}
+
+func getResultForTheMiddleLightsOn() [][]string {
+	return [][]string{
+		{"0", "0", "0", "0"},
+		{"0", "1", "1", "0"},
+		{"0", "1", "1", "0"},
+		{"0", "0", "0", "0"},
+	}
+}
+
+func getConfigLightsForTheMiddleLightsOn() LightsConfiguration {
+	return LightsConfiguration{
+		lights:  get4x4LightsAllOff(),
+		rowX:    1,
+		rowY:    2,
+		columnX: 1,
+		columnY: 2}
+}
+
+func get4x4LightsAllOff() [][]string {
+	return [][]string{
+		{"0", "0", "0", "0"},
+		{"0", "0", "0", "0"},
+		{"0", "0", "0", "0"},
+		{"0", "0", "0", "0"},
+	}
 }
 
 func getConfigLightsForTheMiddleLightsOff() LightsConfiguration {
@@ -76,13 +115,13 @@ func getResultForTheMiddleLightsOff() [][]string {
 	}
 }
 
-func getLightsConfigAllOff() LightsConfiguration {
+func getLightsConfigAllLights() LightsConfiguration {
 	return LightsConfiguration{
 		lights:  getLightsAllOff(),
 		rowX:    0,
-		rowY:    0,
+		rowY:    999,
 		columnX: 0,
-		columnY: 0}
+		columnY: 999}
 }
 
 func getLightsAllOff() [][]string {

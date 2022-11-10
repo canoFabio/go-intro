@@ -13,15 +13,15 @@ func newLightsOn(lightsConfiguration LightsConfiguration) ChristmasLight {
 func (clo ChristmasLightsOn) Display() [][]string {
 	lightsConfiguration := clo.lightsConfiguration
 	lights := lightsConfiguration.lights
-	for i := range lights {
-		lights[i] = changeAllLightsInARowState(lights[i], TurnOn)
+	for i := lightsConfiguration.rowX; i <= lightsConfiguration.rowY; i++ {
+		lights[i] = changeLightRowOn(lightsConfiguration, lights[i])
 	}
 	return lights
 }
 
-func changeAllLightsInARowState(lightRow []string, lightState string) []string {
-	for i := range lightRow {
-		lightRow[i] = lightState
+func changeLightRowOn(configuration LightsConfiguration, row []string) []string {
+	for i := configuration.columnX; i <= configuration.columnY; i++ {
+		row[i] = TurnOn
 	}
-	return lightRow
+	return row
 }
