@@ -12,5 +12,16 @@ func newLightsOff(lightsConfiguration LightsConfiguration) ChristmasLight {
 
 func (clo ChristmasLightsOff) Display() [][]string {
 	lightsConfiguration := clo.lightsConfiguration
-	return lightsConfiguration.lights
+	lights := lightsConfiguration.lights
+	for i := lightsConfiguration.rowX; i <= lightsConfiguration.rowY; i++ {
+		lights[i] = changeLightRowOff(lightsConfiguration, lights[i])
+	}
+	return lights
+}
+
+func changeLightRowOff(configuration LightsConfiguration, row []string) []string {
+	for i := configuration.columnX; i <= configuration.columnY; i++ {
+		row[i] = TurnOff
+	}
+	return row
 }

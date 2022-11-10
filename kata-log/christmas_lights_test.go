@@ -31,11 +31,66 @@ func TestWhenLightsConfigurationIsToggleTheFirstLine_ThenTheOnesShouldBeZeroAndT
 	lightConfiguration := getSomeRandomConfigLights()
 	want := getResultForSomeRandomLights()
 	christmasLights, _ := getChristmasLights(lightsToggle, lightConfiguration)
-
 	got := christmasLights.Display()
 
 	assert.Equal(t, got, want)
 
+}
+
+func TestWhenLightsConfigurationTurnOffTheMiddleLights_ThenTheMiddleLightsShouldBeZeros(t *testing.T) {
+	lightConfiguration := getConfigLightsForTheMiddleLightsOff()
+	want := getResultForTheMiddleLightsOff()
+	christmasLights, _ := getChristmasLights(lightsOff, lightConfiguration)
+
+	got := christmasLights.Display()
+
+	assert.Equal(t, got, want)
+	t.Logf("got %v want %v", got, want)
+}
+
+func getConfigLightsForTheMiddleLightsOff() LightsConfiguration {
+	return LightsConfiguration{
+		lights:  get4x4LightsAllOn(),
+		rowX:    1,
+		rowY:    2,
+		columnX: 1,
+		columnY: 2}
+
+}
+
+func get4x4LightsAllOn() [][]string {
+	return [][]string{
+		{"1", "1", "1", "1"},
+		{"1", "1", "1", "1"},
+		{"1", "1", "1", "1"},
+		{"1", "1", "1", "1"},
+	}
+}
+
+func getResultForTheMiddleLightsOff() [][]string {
+	return [][]string{
+		{"1", "1", "1", "1"},
+		{"1", "0", "0", "1"},
+		{"1", "0", "0", "1"},
+		{"1", "1", "1", "1"},
+	}
+}
+
+func getLightsConfigAllOff() LightsConfiguration {
+	return LightsConfiguration{
+		lights:  getLightsAllOff(),
+		rowX:    0,
+		rowY:    0,
+		columnX: 0,
+		columnY: 0}
+}
+
+func getLightsAllOff() [][]string {
+	want := make([][]string, 1000)
+	for i := range want {
+		want[i] = getLightRowAllOff()
+	}
+	return want
 }
 
 func getResultForSomeRandomLights() [][]string {
@@ -65,15 +120,6 @@ func getSomeRandomLights() [][]string {
 	}
 }
 
-func getLightsConfigAllOff() LightsConfiguration {
-	return LightsConfiguration{
-		lights:  getLightsAllOff(),
-		rowX:    0,
-		rowY:    0,
-		columnX: 0,
-		columnY: 0}
-}
-
 func getLightsAllOn() [][]string {
 	want := make([][]string, 1000)
 	for i := range want {
@@ -88,14 +134,6 @@ func getLightRowAllOn() []string {
 		lightRow[i] = "1"
 	}
 	return lightRow
-}
-
-func getLightsAllOff() [][]string {
-	want := make([][]string, 1000)
-	for i := range want {
-		want[i] = getLightRowAllOff()
-	}
-	return want
 }
 
 func getLightRowAllOff() []string {
