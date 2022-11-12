@@ -1,4 +1,4 @@
-package kata_log
+package main
 
 type ChristmasLightsToggle struct {
 	lightsConfiguration LightsConfiguration

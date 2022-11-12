@@ -1,4 +1,4 @@
-package kata_log
+package main
 
 import "fmt"
 

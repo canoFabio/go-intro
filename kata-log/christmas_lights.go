@@ -1,6 +1,4 @@
-package kata_log
-
-type Configuration string
+package main
 
 const (
 	TurnOn  = "1"
