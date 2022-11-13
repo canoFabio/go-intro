@@ -23,13 +23,18 @@ func (fb *FizzBuzz) FindFizzBuzz(since, to int) {
 }
 
 func (fb *FizzBuzz) findValueToWrite(number int) string {
-	if fb.isMultiplyOfThree(number) {
+
+	switch {
+	case fb.isMultiplyOfThree(number) && fb.isMultiplyOfFive(number):
+		return "FizzBuzz"
+	case fb.isMultiplyOfThree(number):
 		return "Fizz"
-	}
-	if fb.isMultiplyOfFive(number) {
+	case fb.isMultiplyOfFive(number):
 		return "Buzz"
+	default:
+		return strconv.Itoa(number)
 	}
-	return strconv.Itoa(number)
+
 }
 
 func (fb *FizzBuzz) isMultiplyOfFive(number int) bool {

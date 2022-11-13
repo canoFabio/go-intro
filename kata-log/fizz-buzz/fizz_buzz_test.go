@@ -72,3 +72,32 @@ Buzz
 	//then
 	assert.Equal(t, want, got)
 }
+
+func TestWhenFizzBuzzWithRangeFromOneToFiveTeen_ThenPrintFizzInsteadThreePrintBuzzInsteadFiveAndPrintFizzBuzz(t *testing.T) {
+	//given
+	since := 1
+	to := 15
+	buffer := &bytes.Buffer{}
+	underTest := NewFizzBuzz(buffer)
+	want := `1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+`
+	//when
+	underTest.FindFizzBuzz(since, to)
+	got := buffer.String()
+	//then
+	assert.Equal(t, want, got)
+}
