@@ -1,4 +1,4 @@
-package fizz_buzz
+package main
 
 import (
 	"bytes"
