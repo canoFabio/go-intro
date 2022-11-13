@@ -36,3 +36,20 @@ func TestWhenFizzBuzz_ThenPrintSinceTheNumberOneToTheNumberTwo(t *testing.T) {
 	//then
 	assert.Equal(t, want, got)
 }
+
+func TestWhenFizzBuzzWithRangeFromOneToThree_ThenPrintSinceTheNumberOneToTheNumberTwoAndPrintFizzInsteadThree(t *testing.T) {
+	//given
+	since := 1
+	to := 3
+	buffer := &bytes.Buffer{}
+	underTest := NewFizzBuzz(buffer)
+	want := `1
+2
+Fizz
+`
+	//when
+	underTest.FindFizzBuzz(since, to)
+	got := buffer.String()
+	//then
+	assert.Equal(t, want, got)
+}
