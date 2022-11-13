@@ -26,9 +26,16 @@ func (fb *FizzBuzz) findValueToWrite(number int) string {
 	if fb.isMultiplyOfThree(number) {
 		return "Fizz"
 	}
+	if fb.isMultiplyOfFive(number) {
+		return "Buzz"
+	}
 	return strconv.Itoa(number)
 }
 
-func (fb *FizzBuzz) isMultiplyOfThree(i int) bool {
-	return i%3 == 0
+func (fb *FizzBuzz) isMultiplyOfFive(number int) bool {
+	return number%5 == 0
+}
+
+func (fb *FizzBuzz) isMultiplyOfThree(number int) bool {
+	return number%3 == 0
 }
