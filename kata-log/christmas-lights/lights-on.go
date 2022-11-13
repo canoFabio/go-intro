@@ -1,10 +1,10 @@
-package main
+package christmas_lights
 
 type ChristmasLightsOn struct {
 	lightsConfiguration LightsConfiguration
 }
 
-func newLightsOn(lightsConfiguration LightsConfiguration) ChristmasLight {
+func newLightsOn(lightsConfiguration LightsConfiguration) Light {
 	return &ChristmasLightsOn{
 		lightsConfiguration: lightsConfiguration,
 	}

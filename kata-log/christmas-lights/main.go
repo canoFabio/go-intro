@@ -1,6 +1,8 @@
-package main
+package christmas_lights
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	santaClausChristmasLights := make(map[*LightsConfiguration]string)

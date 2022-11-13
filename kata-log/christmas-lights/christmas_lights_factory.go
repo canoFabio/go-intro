@@ -1,4 +1,4 @@
-package main
+package christmas_lights
 
 import "fmt"
 
@@ -8,7 +8,7 @@ const (
 	lightsToggle = "lights_toggle"
 )
 
-func getChristmasLights(christmasLightsType string, lightsConfiguration LightsConfiguration) (ChristmasLight, error) {
+func getChristmasLights(christmasLightsType string, lightsConfiguration LightsConfiguration) (Light, error) {
 	if christmasLightsType == lightsOn {
 		return newLightsOn(lightsConfiguration), nil
 	}
