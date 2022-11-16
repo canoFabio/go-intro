@@ -1,4 +1,4 @@
-package main
+package fizzBuzz
 
 import (
 	"fmt"

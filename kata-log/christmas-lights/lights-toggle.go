@@ -1,4 +1,4 @@
-package christmas_lights
+package main
 
 type ChristmasLightsToggle struct {
 	lightsConfiguration LightsConfiguration

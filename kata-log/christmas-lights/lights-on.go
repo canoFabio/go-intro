@@ -1,4 +1,4 @@
-package christmas_lights
+package main
 
 type ChristmasLightsOn struct {
 	lightsConfiguration LightsConfiguration

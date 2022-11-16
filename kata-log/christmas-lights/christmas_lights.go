@@ -1,4 +1,4 @@
-package christmas_lights
+package main
 
 const (
 	TurnOn  = "1"

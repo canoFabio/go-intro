@@ -1,4 +1,4 @@
-package christmas_lights
+package main
 
 import (
 	"github.com/stretchr/testify/assert"

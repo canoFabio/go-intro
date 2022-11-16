@@ -1,4 +1,4 @@
-package christmas_lights
+package main
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func main() {
 	result := DisplaySantaClausLights(santaClausChristmasLights)
 
 	fmt.Printf("Cant of lighst on %d", countLightsOn(result))
-	fmt.Printf("%v", result)
+	//fmt.Printf("%v", result)
 
 }
 
