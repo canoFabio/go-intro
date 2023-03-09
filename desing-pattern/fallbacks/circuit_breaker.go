@@ -18,12 +18,12 @@ var state = "closed"
 var errorCount = 0
 var mutex = &sync.Mutex{}
 
-func publishLogs(logs []string) error {
+func PublishLogs(logs []string) error {
 	mutex.Lock()
 	defer mutex.Unlock()
 
-	if state == "abierto" {
-		return fmt.Errorf("Circuit Breaker open")
+	if state == "fail" {
+		saveLogsToFile(logs)
 	}
 
 	err := postLogs(logs)
@@ -55,7 +55,7 @@ func postLogs(logs []string) error {
 func tripCircuitBreaker() {
 	state = "fail"
 	time.AfterFunc(openTimeout, func() {
-		state = "open"
+		state = "closed"
 		errorCount = 0
 	})
 }

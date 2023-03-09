@@ -63,3 +63,11 @@ func getLightRowAllOff2() []string {
 	}
 	return lightRow
 }
+
+//func main() {
+//	logs := []string{"Hola Prueba\n"}
+//
+//	for i := 0; i < 10; i++ {
+//		fallbacks.PublishLogs(logs)
+//	}
+//}
